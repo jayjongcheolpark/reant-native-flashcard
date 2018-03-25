@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 const DeckList = () =>
-  <View>
+  <View style={{ backgroundColor: 'red' }}>
     <Text>DeckList</Text>
   </View>;
 

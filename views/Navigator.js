@@ -3,10 +3,15 @@ import DeckList from './DeckList';
 
 export const DECKLIST = 'DECKLIST';
 
-const Navigator = StackNavigator({
-  [DECKLIST]: {
-    screen: DeckList,
+const Navigator = StackNavigator(
+  {
+    [DECKLIST]: {
+      screen: DeckList,
+    },
   },
-});
+  {
+    initialRouteName: DECKLIST,
+  }
+);
 
 export default Navigator;
