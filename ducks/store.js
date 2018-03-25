@@ -1,18 +1,22 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { all } from 'redux-saga/effects';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+import { decksSaga, decksReducer } from './decks';
 
-function sample(state = {}, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
+const middlewares = [];
+const sagaMiddleware = createSagaMiddleware();
+middlewares.push(sagaMiddleware);
 
 const reducer = combineReducers({
-  sample,
+  decks: decksReducer,
 });
 
-const configureStore = initialState => createStoreWithMiddleware(reducer, initialState);
+function* rootSaga() {
+  yield all([...decksSaga]);
+}
 
-export default configureStore;
+const store = createStore(reducer, applyMiddleware(...middlewares));
+sagaMiddleware.run(rootSaga);
+
+export default store;
